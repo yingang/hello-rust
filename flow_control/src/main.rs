@@ -99,7 +99,7 @@ fn chapter8_3() {
 }
 
 fn chapter8_4() {
-    for n in 1..101 {
+    for n in 1..101 {   // 不包括101，如果用..=就包括101了
         if n % 15 == 0 {
             println!("fizzbuzz");
         } else if n % 3 == 0 {
@@ -205,6 +205,186 @@ fn chapter8_5_1_2() {
     }
 }
 
+fn chapter8_5_1_3() {
+    let reference = &4; // 应该和在 reference 前面用 ref 修饰是一样的吧
+
+    match reference {
+        // 加 &，则 val 就是 i32 类型
+        // 如果不加 &，则 val 就是引用类型（&i32），后面的 println! 也是可以工作的
+        &val => println!("Got a value via destructuring: {:?}", val),
+    }
+
+    // 解引用（dereference）
+    match *reference {
+        val => println!("Got a value via dereferencing: {:?}", val),
+    }
+
+    let _not_a_reference = 3;
+    let ref _is_a_reference = 3;
+
+    let value = 5;
+    let mut mut_value = 6;
+
+    match value {
+        // 这里的 r 就是 &i32 类型了
+        ref r => println!("Got a reference to a value: {:?}", r),
+    }
+
+    match mut_value {
+        ref mut m => {
+            // 先要解引用才能使用
+            *m += 10;
+            println!("We added 10. `mut_value`: {:?}", m);
+        },
+    }
+}
+
+fn chapter8_5_1_4() {
+    struct Foo { x: (u32, u32), y: u32 }
+
+    let foo = Foo { x: (1, 2), y: 3 };
+    let Foo { x: (a, b), y } = foo;     // 解构结构体的成员
+
+    println!("a = {}, b = {},  y = {} ", a, b, y);
+
+    // 成员顺序并不重要
+    let Foo { y: i, x: j } = foo;
+    println!("i = {:?}, j = {:?}", i, j);
+
+    // 还可以忽略某些变量
+    let Foo { y, .. } = foo;
+    println!("y = {}", y);
+
+    // 但不能直接就这么少了 x ！
+    // let Foo { y } = foo;
+}
+
+fn chapter8_5_2() {
+    let pair = (2, -2);
+
+    println!("Tell me about {:?}", pair);
+    match pair {
+        // match 配 guard
+        (x, y) if x == y => println!("These are twins"),
+        (x, y) if x + y == 0 => println!("Antimatter, kaboom!"),
+        (x, _) if x % 2 == 1 => println!("The first one is odd"),
+        _ => println!("No correlation..."),
+    }
+}
+
+fn chapter8_5_3() {
+    fn age() -> u32 {
+        15
+    }
+
+    println!("Tell me type of person you are");
+    match age() {
+        0             => println!("I'm not born yet I guess"),
+        // 将变量绑定到名称上
+        n @ 1  ... 12 => println!("I'm a child of age {:?}", n),
+        n @ 13 ... 19 => println!("I'm a teen of age {:?}", n),
+        // 其它情况
+        n             => println!("I'm an old person of age {:?}", n),
+    }
+}
+
+fn chapter8_6() {
+    // Option<i32> 类型
+    let optional = Some(7);
+
+    match optional {
+        Some(i) => {
+            println!("This is a really long string and `{:?}`", i);
+        },
+        _ => {},    // 因为还有None的情况没有覆盖。。。
+    };
+
+    let number = Some(7);
+    let letter: Option<i32> = None;
+    let emoticon: Option<i32> = None;
+
+    // 换个简洁的写法，等效于前面的 match 代码
+    if let Some(i) = number {
+        println!("Matched {:?}!", i);
+    }
+
+    // 如果要指明失败情形，就使用 else：
+    if let Some(i) = letter {
+        println!("Matched {:?}!", i);
+    } else {
+        // 这个和前面的 _ => 就差不多了吧
+        println!("Didn't match a number. Let's go with a letter!");
+    };
+
+    let i_like_letters = false;
+
+    // 可以和普通的 if/else 结合起来使用
+    if let Some(i) = emoticon {
+        println!("Matched {:?}!", i);
+    } else if i_like_letters {
+        println!("Didn't match a number. Let's go with a letter!");
+    } else {
+        println!("I don't like letters. Let's go with an emoticon :)!");
+    };
+
+    enum Foo {
+        Bar,
+        Baz,
+        Qux(u32)
+    }
+
+    let a = Foo::Bar;
+    let b = Foo::Baz;
+    let c = Foo::Qux(100);
+    
+    // if let 还可以匹配枚举值
+    if let Foo::Bar = a {
+        println!("a is foobar");
+    }
+    
+    // 没有匹配上
+    if let Foo::Bar = b {
+        println!("b is foobar");
+    }
+    
+    // 和前面的 Some() 类似，可以提取值
+    if let Foo::Qux(value) = c {
+        println!("c is {}", value);
+    }
+}
+
+fn chapter8_7() {
+   let mut optional = Some(0);
+
+    loop {
+        match optional {
+            Some(i) => {
+                if i > 9 {
+                    println!("Greater than 9, quit!");
+                    optional = None;
+                } else {
+                    println!("`i` is `{:?}`. Try again.", i);
+                    optional = Some(i + 1);     // 这里的 optional 是不是覆盖了原来那个？
+                }
+            },
+            _ => { break; }
+        }
+    }
+
+    let mut optional = Some(0);
+
+    // 更简洁的写法来了！
+    while let Some(i) = optional {
+        if i > 9 {
+            println!("Greater than 9, quit!");
+            optional = None;
+        } else {
+            println!("`i` is `{:?}`. Try again.", i);
+            optional = Some(i + 1);
+        }
+    }   // 这个就不能搭配 else 了哈
+}
+
 fn main() {
     chapter8_1();
     chapter8_2();
@@ -215,4 +395,10 @@ fn main() {
     chapter8_5();
     chapter8_5_1_1();
     chapter8_5_1_2();
+    chapter8_5_1_3();
+    chapter8_5_1_4();
+    chapter8_5_2();
+    chapter8_5_3();
+    chapter8_6();
+    chapter8_7();
 }
