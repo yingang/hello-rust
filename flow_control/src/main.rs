@@ -50,6 +50,7 @@ fn chapter8_2_1() {
     'outer: loop {
         println!("Entered the outer loop");
 
+        #[allow(unused_labels)]
         'inner: loop {
             println!("Entered the inner loop");
 
@@ -146,7 +147,7 @@ fn chapter8_5() {
         // 匹配多个值
         2 | 3 | 5 | 7 | 11 => println!("This is a prime"),
         // 匹配一个闭区间范围
-        13...19 => println!("A teen"),
+        13..=19 => println!("A teen"),
         // 处理其他情况（必须得有这个才能穷尽所有可能性）
         _ => println!("Ain't special"),
     }
@@ -281,8 +282,8 @@ fn chapter8_5_3() {
     match age() {
         0             => println!("I'm not born yet I guess"),
         // 将变量绑定到名称上
-        n @ 1  ... 12 => println!("I'm a child of age {:?}", n),
-        n @ 13 ... 19 => println!("I'm a teen of age {:?}", n),
+        n @ 1  ..= 12 => println!("I'm a child of age {:?}", n),
+        n @ 13 ..= 19 => println!("I'm a teen of age {:?}", n),
         // 其它情况
         n             => println!("I'm an old person of age {:?}", n),
     }
