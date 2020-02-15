@@ -2,8 +2,6 @@ fn chapter6_1() {
     let my_str = "hello";
     let _my_string = String::from(my_str);
 
-    use std::convert::From;
-
     #[derive(Debug)]
     struct Number {
         value: i32,
@@ -25,8 +23,6 @@ fn chapter6_1() {
 }
 
 fn chapter6_2() {
-    use std::string::ToString;
-
     struct Circle {
         radius: i32
     }

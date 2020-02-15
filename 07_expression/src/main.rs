@@ -1,3 +1,5 @@
+#[allow(path_statements)]
+#[allow(unused_must_use)]
 fn chapter7() {
     // 变量绑定
     let x = 5;

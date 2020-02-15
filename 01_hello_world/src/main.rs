@@ -155,7 +155,7 @@ fn chapter1_2_2_1() {
 }
 
 fn chapter1_3() {
-    use std::fmt::{self, Formatter, Display};
+    use std::fmt::{Formatter, Display};
 
     struct City {
         name: &'static str,
