@@ -114,7 +114,7 @@ fn chapter2_3() {
 
     let xs/*: [i32; 5]*/ = [1, 2, 3, 4, 5]; // 可以不写类型标记
 
-    let ys: [i32; 500] = [0; 500];      // 这句的意思是全部初始化成 0 ？
+    let ys: [i32; 500] = [0; 500];      // 疑问：这句的意思是全部初始化成 0 ？ => 是的，500个0。
 
     println!("first element of the array: {}", xs[0]);
     println!("second element of the array: {}", xs[1]);

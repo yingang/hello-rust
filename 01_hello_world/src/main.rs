@@ -30,7 +30,7 @@ fn chapter1_2() {
     println!("This struct `{:?}` won't print...fixed", Structure(3));
 
     impl fmt::Display for Structure {
-        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {  // 这个方法的签名怎么理解？
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {  // 疑问：这个方法的签名怎么理解？ => 类方法，一个可变入参Formatter，一个Result类型返回值
             // f 看上去是一个缓冲区
             write!(f, "Structure({})", self.0) // 结尾没有 `;` 表示直接返回 write! 的返回值吧
         }
@@ -61,8 +61,8 @@ fn chapter1_2_1() {
     println!("Now {:?} will print!", Deep(Structure(7)));
 
     #[derive(Debug)]
-    struct Person<'a> {     // 这个 'a 是表示生命周期吗？
-        name: &'a str,      // 这个 & 呢？
+    struct Person<'a> {     // 疑问：这个 'a 是表示生命周期吗？ => 是的，结构属性使用了生命周期，结构就要使用
+        name: &'a str,      // 疑问：这个 & 呢？ => 修饰str，也就是&str
         age: u8,
     }
 
@@ -141,16 +141,16 @@ fn chapter1_2_2_1() {
     impl fmt::Display for List {
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
             let vec = &self.0;
-            write!(f, "[")?;    // 有 ? 表示活没干完，后续继续
+            write!(f, "[")?;    // 疑问：有 ? 表示活没干完，后续继续？ => 不对，应该是对write返回值Result类型的处理
             for (count, v) in vec.iter().enumerate() {
                 if count != 0 { write!(f, ", ")?; }
                 write!(f, "{}: {}", count, v)?;
             }
-            write!(f, "]")      // 无 ? 表示活干完了，同前，不需要用 `;` 结尾
+            write!(f, "]")      // 疑问：无 ? 表示活干完了，同前，不需要用 `;` 结尾 => 前半句错了，直接返回Result类型
         }
     }
 
-    let v = List(vec![1, 2, 3]);    // 这个 vec! 又是什么？
+    let v = List(vec![1, 2, 3]);    // 疑问：这个 vec! 又是什么？ => 生成vector的宏
     println!("{}", v);
 }
 

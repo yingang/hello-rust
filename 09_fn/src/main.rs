@@ -272,6 +272,7 @@ fn chapter9_2_2()
         // 手动调用 drop 又要求闭包通过值获取 `farewell`。
         // 现在需要 `FnOnce`。
         mem::drop(farewell);
+        // 疑问：^ 如果把这行注释掉，把apply的FnOnce改成FnMut，为什么同时要把f申明为mut？
     };
 
     // 以闭包作为参数，调用函数 `apply`。

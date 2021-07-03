@@ -9,7 +9,7 @@ fn chapter8_1() {
         print!("{} is zero", n);
     }
 
-    // 所有分支必须返回相同的类型？
+    // 疑问：所有分支必须返回相同的类型？
     let big_n =
         if n < 10 && n > -10 {
             println!(", and is a small number, increase ten-fold");
@@ -365,7 +365,7 @@ fn chapter8_7() {
                     optional = None;
                 } else {
                     println!("`i` is `{:?}`. Try again.", i);
-                    optional = Some(i + 1);     // 这里的 optional 是不是覆盖了原来那个？
+                    optional = Some(i + 1);     // 疑问：这里的 optional 是不是覆盖了原来那个？ => 没有let就还都是同一个
                 }
             },
             _ => { break; }
