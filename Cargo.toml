@@ -1,0 +1,13 @@
+[workspace]
+
+members = [
+  "01_hello_world",
+  "02_primitive",
+  "03_custom_types",
+  "04_variable_bindings",
+  "05_types",
+  "06_conversion",
+  "07_expression",
+  "08_flow_control",
+  "09_fn",
+]
