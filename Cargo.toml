@@ -10,4 +10,5 @@ members = [
   "07_expression",
   "08_flow_control",
   "09_fn",
+  "10_mod",
 ]

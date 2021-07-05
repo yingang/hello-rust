@@ -164,7 +164,25 @@ fn chapter10_2()
     // TODO ^ Try uncommenting this line
 }
 
+
+// 看上去这个对应了整个my2目录，且以目录下的mod.rs为主体
+mod my2;
+
+fn chapter10_5() {
+
+    fn function() {
+        println!("called `function()`");
+    }
+    
+    my2::function();
+    function();
+    my2::indirect_access();
+    my2::nested::function();    // 因为在mod.rs里pub mod nested了，另外的inaccessible就无法这样访问
+}
+
 fn main() {
     chapter10_1();
     chapter10_2();
+    // skip 10_3() & 10_4()
+    chapter10_5();
 }

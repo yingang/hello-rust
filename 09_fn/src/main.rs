@@ -385,7 +385,7 @@ fn chapter9_2_6_2()
     // `into_iter()` for vecs yields `i32`.
     let mut into_iter = vec2.into_iter();
 
-    // 疑问：没看懂为什么要双引用，以及为什么 find 和 any 的要求不一样
+    // 疑问：没看懂为什么要双引用，以及为什么 find 和 any 的要求不一样 => iterator一般是对reference做遍历，而find还额外要求reference，但any不要求，详见Iterator的文档描述
 
     // `iter()` for vecs yields `&i32`, and we want to reference one of its
     // items, so we have to destructure `&&i32` to `i32`
@@ -405,7 +405,7 @@ fn chapter9_2_6_2()
 
     let vec = vec![1, 9, 3, 3, 13, 2];
 
-    // 疑问：为什么这里连引用都不需要了？
+    // 疑问：为什么这里连引用都不需要了？而且加上引用也没报错（仅前一句，后一句不行），是不是自动解引用了？
     let index_of_first_even_number = vec.iter().position(|x| x % 2 == 0);
     assert_eq!(index_of_first_even_number, Some(5));
     

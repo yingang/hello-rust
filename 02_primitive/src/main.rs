@@ -82,7 +82,7 @@ fn chapter2_2() {
     println!("just an integer: {:?}", (5u32));
 
     let tuple = (1, "hello", 4.5, true);
-    let (a, b, c, d) = tuple;   // 解构 | deconstruct
+    let (a, b, c, d) = tuple;   // 解构 | destructuring
     println!("{:?}, {:?}, {:?}, {:?}", a, b, c, d);
 
     let matrix = Matrix(1.1, 1.2, 2.1, 2.2);
