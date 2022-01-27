@@ -1,15 +1,15 @@
 [workspace]
 
 members = [
-  "01_hello_world",
-  "02_primitive",
-  "03_custom_types",
-  "04_variable_bindings",
-  "05_types",
-  "06_conversion",
-  "07_expression",
-  "08_flow_control",
-  "09_fn",
-  "10_mod",
-  "14_generics",
+  "hello_world",
+  "primitive",
+  "custom_types",
+  "variable_bindings",
+  "types",
+  "conversion",
+  "expression",
+  "flow_control",
+  "fn",
+  "mod",
+  "generics",
 ]
